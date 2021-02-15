@@ -1,0 +1,28 @@
+#colored_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 100px;
+  grid-gap: 10px;
+  align-items: center;
+  background-color: beige;
+}
+
+.red {
+  background: orangered;
+  height: 40%;
+  align-self: baseline;
+}
+.green {
+  background: yellowgreen;
+  height: 60%;
+}
+.blue {
+  background: steelblue;
+  height: auto;
+  align-self: stretch;
+}
+.pink {
+  background: violet;
+  height: 80px;
+  align-self: flex-end;
+}

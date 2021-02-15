@@ -1,0 +1,26 @@
+.dialogs {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+}
+
+.messages {
+  padding: 10px;
+  border: 1px;
+  border-style: dashed;
+  border-color: white;
+}
+
+.dialog a,
+div > .dialogs {
+  color: rgb(53, 14, 97);
+}
+
+a.active {
+  color: white;
+}
+
+.ava {
+  height: 40px;
+  border-radius: 30px;
+}

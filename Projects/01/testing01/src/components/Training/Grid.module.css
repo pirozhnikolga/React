@@ -1,0 +1,17 @@
+#grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    gap: 2px;
+  }
+
+  #grid > div{
+    padding: 10px;
+    background: yellowgreen;
+    text-align: center;
+  }
+
+  #grid > div {
+    padding: 20px;
+    font-size: 4vw;
+    color: white;
+  }

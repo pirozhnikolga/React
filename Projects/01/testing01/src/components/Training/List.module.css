@@ -1,0 +1,16 @@
+ul {
+    display: grid;
+    grid: auto-flow / auto 1fr;
+  }
+  li {
+    grid-column: span 2;
+    display: grid;
+    grid: subgrid;
+    border: solid;
+  }
+  label {
+    grid-column: 1;
+  }
+  input {
+    grid-column: 2;
+  }
