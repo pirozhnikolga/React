@@ -27,16 +27,23 @@ export let data = {
         messages: messages
     },
     profilePage: {
-        posts: posts
+        posts: posts,
+        newPostText: ""
     }
 }
 
-export let addPost = (message) => {
+export let addPost = () => {
     let newPost = {
-        message: message,
+        message: data.profilePage.newPostText,
         likesCount: 0
     };
 
     data.profilePage.posts.push(newPost);
+    data.profilePage.newPostText = "";
+    renderEntireTree(data);
+}
+
+export let updateNewPostMessage = (text) => {
+    data.profilePage.newPostText = text;
     renderEntireTree(data);
 }
