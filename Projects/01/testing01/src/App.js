@@ -9,14 +9,17 @@ import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
 
 const App = (props) => {
+
+    let state = props.store.getState();
+
     return (
         <BrowserRouter >
             <div className='app-wrapper' >
                 <Header />
                 <Navbar />
                 <div className='app-wrapper-content' >
-                    <Route path='/dialogs' render={() => < Dialogs dialogs={props.data.dialogsPage} />} />
-                    <Route path='/profile' render={() => < Profile posts={props.data.profilePage} addPost={props.addPost} updateNewPostMessage={props.updateNewPostMessage}/>} />
+                    <Route path='/dialogs' render={() => < Dialogs dialogs={state.dialogsPage} />} />
+                    <Route path='/profile' render={() => < Profile posts={state.profilePage} addPost={props.store.addPost.bind(props.store)} updateNewPostMessage={props.store.updateNewPostMessage.bind(props.store)} />} />
                     <Route path='/news' component={News} />
                     <Route path='/music' component={Music} />
                     <Route path='/settings' component={Settings} />
