@@ -1,5 +1,7 @@
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_MESSAGE = "UPDATE-NEW-POST-MESSAGE";
+const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
+const ADD_MESSAGE = "ADD-MESSAGE";
 
 
 let dialogs = [
@@ -27,7 +29,8 @@ export let store = {
     _data: {
         dialogsPage: {
             dialogs: dialogs,
-            messages: messages
+            messages: messages,
+            newMessageText: ""
         },
         profilePage: {
             posts: posts,
@@ -44,24 +47,44 @@ export let store = {
         this._callSubscriber = observer;
     },
     dispatch(action) {
-        debugger;
-        if (action.type === ADD_POST) {
-            if (this._data.profilePage.newPostText === "") {
-                alert("There is no anything to add.");
-                return;
-            }
+        switch (action.type) {
+            case ADD_POST: {
+                if (this._data.profilePage.newPostText === "") {
+                    alert("There is no anything to add.");
+                    return;
+                }
 
-            let newPost = {
-                message: this._data.profilePage.newPostText,
-                likesCount: 0
-            };
+                let newPost = {
+                    message: this._data.profilePage.newPostText,
+                    likesCount: 0
+                };
 
-            this._data.profilePage.posts.push(newPost);
-            this._data.profilePage.newPostText = "";
-            this._callSubscriber();
-        } else if (action.type === UPDATE_NEW_POST_MESSAGE) {
-            this._data.profilePage.newPostText = action.text;
-            this._callSubscriber();
+                this._data.profilePage.posts.push(newPost);
+                this._data.profilePage.newPostText = "";
+                this._callSubscriber();
+            } break;
+            case UPDATE_NEW_POST_MESSAGE: {
+                this._data.profilePage.newPostText = action.text;
+                this._callSubscriber();
+            } break;
+            case UPDATE_NEW_MESSAGE_TEXT: {
+                this._data.dialogsPage.newMessageText = action.text;
+                this._callSubscriber();
+            } break;
+            case ADD_MESSAGE: {
+                if (this._data.dialogsPage.newMessageText === "") {
+                    alert("There is no anything to add.");
+                    return;
+                }
+
+                let newMessage = {
+                    text: this._data.dialogsPage.newMessageText
+                };
+
+                this._data.dialogsPage.messages.push(newMessage);
+                this._data.dialogsPage.newMessageText = "";
+                this._callSubscriber();
+            } break;
         }
     }
 };
@@ -70,6 +93,14 @@ export const addPostActionCreator = () => {
     return { type: ADD_POST };
 }
 
+export const addMessageActionCreator = () => {
+    return { type: ADD_MESSAGE };
+}
+
 export const updateNewPostMessageActionCreator = (text) => {
     return { type: UPDATE_NEW_POST_MESSAGE, text: text };
+}
+
+export const updateNewMessageTextActionCreator = (text) => {
+    return { type: UPDATE_NEW_MESSAGE_TEXT, text: text };
 }
