@@ -36,27 +36,28 @@ export let store = {
     getState() {
         return this._data;
     },
-    addPost() {
-
-        if (this._data.profilePage.newPostText == "") {
-            alert("There is no anything to add.");
-            return;
-        }
-
-        let newPost = {
-            message: this._data.profilePage.newPostText,
-            likesCount: 0
-        };
-
-        this._data.profilePage.posts.push(newPost);
-        this._data.profilePage.newPostText = "";
-        this._callSubscriber();
-    },
-    updateNewPostMessage(text) {
-        this._data.profilePage.newPostText = text;
-        this._callSubscriber();
-    },
     stateUpdatedSubscribe(observer) {
         this._callSubscriber = observer;
+    },
+    dispatch(action) {
+        debugger;
+        if (action.type === "ADD-POST") {
+            if (this._data.profilePage.newPostText === "") {
+                alert("There is no anything to add.");
+                return;
+            }
+
+            let newPost = {
+                message: this._data.profilePage.newPostText,
+                likesCount: 0
+            };
+
+            this._data.profilePage.posts.push(newPost);
+            this._data.profilePage.newPostText = "";
+            this._callSubscriber();
+        } else if (action.type === "UPDATE-NEW-POST-MESSAGE") {
+            this._data.profilePage.newPostText = action.text;
+            this._callSubscriber();
+        }
     }
 };
