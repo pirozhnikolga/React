@@ -11,7 +11,7 @@ const Dialogs = (props) => {
     }
 
     let updateMessageText = (e) => {
-        let msg = e.current.value;
+        let msg = e.target.value;
         props.dispatch(updateNewMessageTextActionCreator(msg));
     }
 

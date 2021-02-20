@@ -8,7 +8,7 @@ const MyPosts = (props) => {
     let postsElement = props.posts.posts.map(p => < Post message={p.message} likesCount={p.likesCount} />);
 
     let updateNewPostMessage = (e) => {
-        let text = e.current.value;
+        let text = e.target.value;
         props.dispatch(updateNewPostMessageActionCreator(text));
     };
 
