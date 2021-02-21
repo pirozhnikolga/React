@@ -1,5 +1,5 @@
 import s from "./Profile.module.css";
-import MyPosts from './MyPosts/MyPosts';
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 const Profile = (props) => {
     return (
@@ -10,9 +10,7 @@ const Profile = (props) => {
                     <img className={s.mini_logo} alt='mini-logo' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMQ179Ewtp_zAcSw2HGEZm9cPcy_T2Td-Rtw&usqp=CAU' />
                     <div>Description</div>
                 </div>
-                <MyPosts posts={props.posts} 
-                dispatch={props.dispatch}
-                newPostText={props.posts.newPostText}/>
+                <MyPostsContainer store={props.store}/>
             </div>
         </div>
     )
