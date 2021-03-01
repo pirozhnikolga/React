@@ -18,13 +18,16 @@ let initialState = {
 }
 
 const dialogsReducer = (state = initialState, action) => {
-    debugger;
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_TEXT: {
-            state.newMessageText = action.text;
-            return state;
+
+            let stateCopy = { ...state };
+            stateCopy.newMessageText = action.text;
+
+            return stateCopy;
         }
         case ADD_MESSAGE: {
+
             if (state.newMessageText === "") {
                 alert("There is no anything to add.");
                 return state;
@@ -34,9 +37,12 @@ const dialogsReducer = (state = initialState, action) => {
                 text: state.newMessageText
             };
 
-            state.messages.push(newMessage);
-            state.newMessageText = "";
-            return state;
+            let stateCopy = { ...state };
+            stateCopy.messages = [...state.messages];
+            stateCopy.messages.push(newMessage);
+            stateCopy.newMessageText = "";
+
+            return stateCopy;
         }
         default: return state;
     }

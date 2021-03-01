@@ -14,6 +14,7 @@ let initialState = {
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST: {
+
             if (state.newPostText === "") {
                 alert("There is no anything to add.");
                 return state;
@@ -24,16 +25,19 @@ const profileReducer = (state = initialState, action) => {
                 likesCount: 0
             };
 
-            state.posts.push(newPost);
-            state.newPostText = "";
+            let stateCopy = { ...state };
+            stateCopy.posts = [ ...state.posts ];
+            stateCopy.posts.push(newPost);
+            stateCopy.newPostText = "";
 
-            return state;
+            return stateCopy;
         }
         case UPDATE_NEW_POST_MESSAGE: {
 
-            state.newPostText = action.text;
+            let stateCopy = { ...state };
+            stateCopy.newPostText = action.text;
 
-            return state;
+            return stateCopy;
         }
         default: return state;
     }
