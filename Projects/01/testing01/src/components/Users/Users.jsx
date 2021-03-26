@@ -2,6 +2,7 @@ import s from "./Users.module.css";
 import noUserImg from "../../assets/images/no-user.png"
 import { NavLink } from "react-router-dom";
 import { usersAPI } from "../../api/api";
+import loadingImg from "../../assets/images/loading.gif"
 
 const Users = (props) => {
 
@@ -21,7 +22,9 @@ const Users = (props) => {
                         onClick={(e) => { props.onPageChanged(p); }}>{p}</span>
                 })}
             </div>
-            {props.users.map((u) => <div key={u.id}>
+            {props.isFetching
+                ? <img src={loadingImg} alt="loading" />
+                : props.users.map((u) => <div key={u.id}>
                 <div>
                     <NavLink to={'/profile/' + u.id}>
                         <img src={u.photos.small || noUserImg} className={s.ava} alt="ava" />

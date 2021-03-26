@@ -1,5 +1,9 @@
 import { connect } from "react-redux";
-import { followAC, setUsersAC, unfollowAC, setCurrentPageAC, setTotalUsersCountAC, toggleFollowingAC } from "../../redux/usersReducer";
+import {
+    followAC, setUsersAC, unfollowAC,
+    setCurrentPageAC, setTotalUsersCountAC,
+    toggleFollowingAC, toggleFetchingAC
+} from "../../redux/usersReducer";
 import Users from "./Users";
 import React from "react";
 import { usersAPI } from "../../api/api";
@@ -8,24 +12,35 @@ class UsersComponent extends React.Component {
 
     componentDidMount() {
 
+        this.props.toggleFetching();
+
         usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
             .then(data => {
-            this.props.setUsers(data.items);
-            this.props.setTotalUsersCount(data.totalCount);
+                this.props.setUsers(data.items);
+                this.props.setTotalUsersCount(data.totalCount);
+
+                this.props.toggleFetching();
         })
     }
 
     onPageChanged = (pageNumber) => {
+
         this.props.setCurrentPage(pageNumber);
+
+        this.props.toggleFetching();
+
         usersAPI.getUsers(pageNumber, this.props.pageSize)
             .then(data => {
             this.props.setUsers(data.items);
-            this.props.setTotalUsersCount(data.totalCount);
+                this.props.setTotalUsersCount(data.totalCount);
+
+                this.props.toggleFetching();
         })
     }
 
     render() {
         return <Users totalUsersCount={this.props.totalUsersCount}
+            isFetching={this.props.isFetching}
             pageSize={this.props.pageSize}
             currentPage={this.props.currentPage}
             onPageChanged={this.onPageChanged}
@@ -43,7 +58,8 @@ const mapStateToProps = (state) => {
         currentPage: state.usersPage.currentPage,
         totalUsersCount: state.usersPage.totalUsersCount,
         pageSize: state.usersPage.pageSize,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress,
+        isFetching: state.usersPage.isFetching
     }
 }
 
@@ -66,6 +82,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         toggleFollowing: (userId) => {
             dispatch(toggleFollowingAC(userId))
+        },
+        toggleFetching: () => {
+            dispatch(toggleFetchingAC())
         }
     }
 }
